@@ -1,0 +1,23 @@
+manifestVersion: 1
+
+package:
+  name: robonix.service.grasp_geometry
+  version: 0.1.0
+  description: 深度几何抓取服务 — 一帧 RGB-D → 承托面/物体顶面/长轴/闭合方向/抓取跨度（相机系）；不依赖固定桌面高度与单应。
+  license: MulanPSL-2.0
+  tags: [service, perception, grasp, depth, rgbd, geometry]
+  maintainers:
+    - 福伟 王 <137484563@qq.com>
+
+build: bash scripts/build.sh
+start: bash scripts/start.sh
+stop: bash scripts/stop.sh
+
+# 运行时真实注册的能力。driver 不在这里写：新包由框架自动注册共享
+# robonix/lifecycle/driver（见 book:packaging-spec §4）。
+capabilities:
+  - name: robonix/service/perception/grasp_geometry/locate
+    transport: [mcp, grpc]
+    path: capabilities/perception/grasp_geometry/locate.v1.toml
+
+depends: []

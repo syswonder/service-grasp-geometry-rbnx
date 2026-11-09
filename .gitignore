@@ -1,0 +1,8 @@
+# SPDX-License-Identifier: MulanPSL-2.0
+# 只保留构建/运行产物与本地凭据，源码全部入库。
+rbnx-build/
+__pycache__/
+*.pyc
+logs/
+*.local.yaml
+.venv/

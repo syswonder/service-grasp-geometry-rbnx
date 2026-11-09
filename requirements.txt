@@ -1,0 +1,6 @@
+# 抓取几何服务的依赖。
+#
+# **没有 torch / 没有模型权重**：检测是 HTTPS 打给外部多模态模型（OpenAI 兼容），
+# 几何是 numpy + OpenCV。服务本身很轻。
+numpy>=1.24
+opencv-python>=4.8

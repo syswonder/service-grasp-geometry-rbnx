@@ -1,0 +1,32 @@
+# 部署清单里 grasp_geometry 实例的 config 模板。
+# 复制到 robot 部署仓库的 robonix_manifest.yaml，按现场改值。
+#
+# 关键约定：
+# - camera_matrix/dist_coeffs 是**本体标定**，属于部署仓库，不写回包；
+# - camera_provider_id 指定用哪个相机原语实例（多相机部署必填）；
+# - VLM 凭据走部署配置/环境变量，不要提交到公开仓库。
+
+grasp_geometry:
+  # 相机原语实例名（atlas 上的 provider id；如 realsense_camera / wrist_camera）
+  camera_provider_id: realsense_camera
+  # 没有 atlas 的离线联调才直连话题；正常部署留空
+  rgb_topic: ""
+  depth_topic: ""
+  # 腕上 D435i 内参（示例值，必须用本机标定替换）
+  camera_matrix:
+    - [902.218237, 0.0, 657.76298]
+    - [0.0, 901.975088, 365.019295]
+    - [0.0, 0.0, 1.0]
+  dist_coeffs: [0.120308878, -0.348117232, 0.00191494011, -0.000446665883, 0.245309989]
+  frame_id: camera_color_optical_frame
+  depth_units_mm: 1.0
+  top_point_source: topface
+  # 检测（只有调用方不给 box 时才用；也可是环境变量注入）
+  vlm_base_url: ${VLM_BASE_URL}
+  vlm_api_key: ${VLM_API_KEY}
+  vlm_model: ${VLM_MODEL}
+  vlm_timeout_s: 90.0
+  frame_stale_s: 2.0
+  locate_timeout_s: 120.0
+  log_dir: ${HOME}/.robonix/grasp_geometry/logs
+  log_keep: 50
